@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useId } from 'react';
 
 const gaussian = (x, mean = 0.5, sigma = 0.15) =>
     Math.exp(-((x - mean) ** 2) / (2 * sigma ** 2));
@@ -19,12 +19,9 @@ function DashedGradientLine({
     const y1 = start.y * screenHeight;
     const x2 = end.x * screenWidth;
     const totalLength = x2 - x1;
-
-    const gradientId = useMemo(
-        () => `dashed-grad-${colors.join('-').replace(/[^a-zA-Z0-9]/g, '')}`,
-        [colors]
-    );
-    const maskId = `dash-mask-${gradientId}`;
+    const uid = useId();
+    const gradientId = `dashed-grad-${uid.replace(/[^a-zA-Z0-9]/g, '')}`;
+    const maskId = `dash-mask-${uid.replace(/[^a-zA-Z0-9]/g, '')}`;
 
     const avgStep = (minDashWidth + maxDashWidth) / 2 + gap;
     const count = Math.floor(totalLength / avgStep);

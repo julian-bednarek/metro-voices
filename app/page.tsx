@@ -19,20 +19,59 @@ export default function MetroLineTestPage() {
     <div style={{ width: dimensions.width, height: dimensions.height, position: 'relative', background: '#f0f0f0' }}>
 
       <DashedGradientLine
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 0.2, y: 0.5 }}
+        start={{ x: 0.25, y: 0.55 }}
+        end={{ x: 0.45, y: 0.0 }}
         colors={['#71B432', '#0091D1', '#CCB502']}
-        dashWidth={6}
-        minDashHeight={4}
-        maxDashHeight={24}
+        minDashWidth={4}
+        maxDashWidth={12}
+        dashHeight={15}
         gap={6}
         sigma={0.15}
-        screenWidth={400}
-        screenHeight={40}
+        screenWidth={dimensions.width}
+        screenHeight={dimensions.height}
+      />
+
+      <DashedGradientLine
+        start={{ x: 0, y: 0.55 }}
+        end={{ x: 0.2, y: 0.0 }}
+        colors={['#71B432', '#0091D1', '#CCB502']}
+        minDashWidth={4}
+        maxDashWidth={12}
+        dashHeight={15}
+        gap={6}
+        sigma={0.15}
+        screenWidth={dimensions.width}
+        screenHeight={dimensions.height}
+      />
+
+      <DashedGradientLine
+        start={{ x: 0.25, y: 0.7 }}
+        end={{ x: 0.45, y: 0.0 }}
+        colors={['#71B432', '#0091D1', '#CCB502']}
+        minDashWidth={4}
+        maxDashWidth={12}
+        dashHeight={15}
+        gap={6}
+        sigma={0.15}
+        screenWidth={dimensions.width}
+        screenHeight={dimensions.height}
+      />
+
+      <DashedGradientLine
+        start={{ x: 0, y: 0.7 }}
+        end={{ x: 0.2, y: 0.0 }}
+        colors={['#71B432', '#0091D1', '#CCB502']}
+        minDashWidth={4}
+        maxDashWidth={12}
+        dashHeight={15}
+        gap={6}
+        sigma={0.15}
+        screenWidth={dimensions.width}
+        screenHeight={dimensions.height}
       />
 
       <MetroLine
-        start={{ x: 0.0, y: 0.45 }}
+        start={{ x: 0.0, y: 0.4 }}
         end={{ x: 1.0, y: 0.85 }}
         colors={lineColors}
         cornerRadius={48}
