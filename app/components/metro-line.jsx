@@ -71,7 +71,7 @@ function MetroLine({
                 d={pathData}
                 fill="none"
                 stroke={stroke}
-                strokeWidth={12}
+                strokeWidth={8}
                 strokeLinecap="round"
             />
         </svg>

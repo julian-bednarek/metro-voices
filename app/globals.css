@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #F0F0F0;
   --foreground: #171717;
+}
+
+nextjs-portal {
+  display: none !important;
 }
 
 @theme inline {
