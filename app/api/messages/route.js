@@ -4,11 +4,12 @@ export async function GET() {
   const { data, error } = await supabase
     .from("messages")
     .select("*")
-    .order("created_at", { ascending: false })
-    .limit(1);
+    .order("id", { ascending: false })
+    .limit(100);
 
   if (error) return Response.json({ error: error.message }, { status: 500 });
-  return Response.json(data[0] ?? null);
+  const random = data[Math.floor(Math.random() * data.length)];
+  return Response.json(random ?? null);
 }
 
 export async function POST(request) {
