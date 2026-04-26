@@ -13,7 +13,17 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const { content } = await request.json();
+  let content;
+  try {
+    const body = await request.json();
+    content = body.content;
+  } catch (e) {
+    return Response.json({ error: "Invalid JSON" }, { status: 400 });
+  }
+
+  if (!content || !content.trim()) {
+    return Response.json({ error: "Message cannot be empty" }, { status: 400 });
+  }
 
   const { data, error } = await supabase
     .from("messages")
