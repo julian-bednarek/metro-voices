@@ -7,6 +7,9 @@ export default function ReadPage() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const router = useRouter();
   const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -14,8 +17,17 @@ export default function ReadPage() {
     };
     handleResize();
     fetch("/api/messages")
-    .then((res) => res.json())
-    .then((data) => setMessage(data));
+      .then((res) => res.json())
+      .then((data) => {
+      if (data?.error) {
+        setError(data.error);
+    } else {
+      setMessage(data);
+    }
+  })
+  .catch(() => setError("Could not connect to server"))
+  .finally(() => setLoading(false));
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -178,7 +190,10 @@ export default function ReadPage() {
                     margin: 0,
                   }}
                 >
-                  {message ? message.content : "No messages yet."}
+                  {loading && "Loading..."}
+                  {error && error}
+                  {!loading && !error && (message ? message.content : "No messages yet.")}
+
 
                 </p>
               </div>

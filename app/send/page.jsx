@@ -5,20 +5,31 @@ import { useRouter } from "next/navigation";
 
 export default function SendPage() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [error, setError] = useState(null);
   const router = useRouter();
   const [message, setMessage] = useState("");
 
   const handleSubmit = async () => {
   if (!message.trim()) return;
 
-  await fetch("/api/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ content: message }),
-  });
+  try {
+    const response = await fetch("/api/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content: message }),
+    });
 
-  setMessage("");
-  router.push("/");
+    if (!response.ok) {
+      const data = await response.json();
+      setError(data.error || "Something went wrong");
+      return;
+    }
+
+    setMessage("");
+    router.push("/");
+  } catch (e) {
+    setError("Could not connect to server");
+  }
 };
 
   useEffect(() => {
@@ -160,6 +171,12 @@ export default function SendPage() {
                 resize: "none",
               }}
             />
+
+            {error && (
+              <p style={{ color: "red", fontFamily: "Geologica, sans-serif", fontSize: "0.9rem", margin: 0 }}>
+                {error}
+              </p>
+            )}
 
             {/* LEFT-ALIGNED BUTTON */}
             <button
